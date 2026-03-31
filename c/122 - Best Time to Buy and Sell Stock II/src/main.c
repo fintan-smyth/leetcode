@@ -10,35 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// static inline void reverse_arr(int *nums, int start, int end)
-// {
-// 	int tmp;
-// 	while (--end > start)
-// 	{
-// 		tmp = nums[end];
-// 		nums[end] = nums[start];
-// 		nums[start++] = tmp;
-// 	}
-// }
-//
-// void rotate(int* nums, int n, int k)
-// {
-// 	k = n - (k % n);
-//
-// 	reverse_arr(nums, 0, k);
-// 	reverse_arr(nums, k, n);
-// 	reverse_arr(nums, 0, n);
-// }
+#include <stdio.h>
 
-#include <string.h>
-
-void rotate(int* nums, int n, int k)
+int maxProfit(int *prices, int n)
 {
-	k = k % n;
-	int copy[n];
-	int sub = n - k;
+	int max = 0;
+	int diff;
 
-	memcpy(&copy[k], nums, sub * sizeof(int));
-	memcpy(copy, &nums[sub], k * sizeof(int));
-	memcpy(nums, copy, n * sizeof(int));
+	for (int i = 1; i < n; i++)
+	{
+		diff = prices[i] - prices[i - 1];
+		max += (diff > 0) ? diff : 0;
+	}
+	return max;
+}
+
+int main(void)
+{
+	int nums[] = {7,1,5,3,6,4};
+	printf("max: %d\n", maxProfit(nums, 6));
 }

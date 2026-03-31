@@ -10,35 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// static inline void reverse_arr(int *nums, int start, int end)
-// {
-// 	int tmp;
-// 	while (--end > start)
-// 	{
-// 		tmp = nums[end];
-// 		nums[end] = nums[start];
-// 		nums[start++] = tmp;
-// 	}
-// }
-//
-// void rotate(int* nums, int n, int k)
-// {
-// 	k = n - (k % n);
-//
-// 	reverse_arr(nums, 0, k);
-// 	reverse_arr(nums, k, n);
-// 	reverse_arr(nums, 0, n);
-// }
+#include <stdio.h>
+#include <stdbool.h>
 
-#include <string.h>
-
-void rotate(int* nums, int n, int k)
+bool canJump(int* nums, int n)
 {
-	k = k % n;
-	int copy[n];
-	int sub = n - k;
-
-	memcpy(&copy[k], nums, sub * sizeof(int));
-	memcpy(copy, &nums[sub], k * sizeof(int));
-	memcpy(nums, copy, n * sizeof(int));
+    n--;
+	int prev = n - 1;
+	while (n > 0 && prev > -1)
+	{
+		if (n - prev <= nums[prev])
+			n = prev;
+		prev--;
+	}
+	return (n == 0);
 }
+
+int main(void)
+{
+	int nums[] = {2,3,1,1,4};
+	int nums2[] = {3,2,1,0,4};
+
+	printf("nums1: %d\nnums2: %d\n", canJump(nums, 5), canJump(nums2, 5));
+}
+
+
+
+// [3,2,2,0,3,0,0,4]
